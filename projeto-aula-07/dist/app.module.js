@@ -8,13 +8,35 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { ConvidadosController } from './convidados/convidados.controller.js';
+import { ConvidadosService } from './convidados/convidados.service.js';
+import { LivrosController } from './livros/livros.controller.js';
+import { LivrosService } from './livros/livros.service.js';
+import { MediaController } from './media/media.controller.js';
+import { SegurancaController } from './seguranca/seguranca.controller.js';
+import { AdminController } from './admin/admin.controller.js';
+import { LoggerMiddleware } from './logger/logger.middleware.js';
+import { ProdutosController } from './produtos/produtos.controller.js';
+import { ProdutosService } from './produtos/produtos.service.js';
+import { ColaboradoresController } from './colaboradores/colaboradores.controller.js';
 let AppModule = class AppModule {
+    configure(consumer) {
+        consumer.apply(LoggerMiddleware).forRoutes('*');
+    }
 };
 AppModule = __decorate([
     Module({
         imports: [],
-        controllers: [AppController, ConvidadosController],
-        providers: [AppService],
+        controllers: [
+            AppController,
+            ConvidadosController,
+            LivrosController,
+            MediaController,
+            SegurancaController,
+            AdminController,
+            ProdutosController,
+            ColaboradoresController,
+        ],
+        providers: [AppService, ConvidadosService, LivrosService, ProdutosService],
     })
 ], AppModule);
 export { AppModule };
